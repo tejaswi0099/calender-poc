@@ -1,6 +1,17 @@
-function findWeekMonthLabel(){
-    let startDate = new Date('1/1/2019'),
-     endDate = new Date('12/31/2019');
+// 13 months from todays month
+// 3 month after thodays month
+// Example - Current month -- Feb
+//Start Date would be 1 Jan- 2019
+//End Date would be 31 May - 2020
+function findWeekMonthLabel(startDate = new Date('1/1/2019'), endDate = new Date('12/31/2019')){
+    
+    //create logic for generate date range
+    let sD = new Date();
+    let lD = new Date();
+    startDate = new Date(`${new Date(sD.setMonth(sD.getMonth()-12)).getMonth()}/1/${sD.getFullYear()}`)
+    endDate = new Date(`${new Date(lD.setMonth(lD.getMonth()+4)).getMonth()}/30/${lD.getFullYear()}`)
+    console.log(startDate);
+    console.log(endDate);
      //find the first monday of the month
      let monthLyView = [
         
@@ -16,12 +27,12 @@ function findWeekMonthLabel(){
                 if(dateDiffInDays(startDate,new Date(`${startDate.getMonth()+1}/30/2019`)) < 7 && startDate.getMonth() !== 1){
                     let cmonth = getMonthLabel(startDate.getMonth());
                     let tDate = new Date(startDate);
-                    let lastMonth = getMonthLabel(tDate.getMonth()-1);
-                    tObj.monthLabel = `${lastMonth} - ${cmonth}`
+                    let lastMonth = getMonthLabel(tDate.getMonth()+1);
+                    tObj.monthLabel = `${cmonth} - ${lastMonth}`
                     tObj.startDate = new Date(startDate);                    
                     tObj.endDate = startDate.setHours(startDate.getDay()+(6*24));
                 }else{
-                    let cmonth = getMonthLabel(startDate.getMonth());
+                    let cmonth = getMonthLabelFull(startDate.getMonth());
                     tObj.monthLabel = `${cmonth}`
                     tObj.startDate = new Date(startDate);                    
                     tObj.endDate = new Date(startDate.setHours(startDate.getHours()+ (6*24)));
@@ -30,11 +41,13 @@ function findWeekMonthLabel(){
            }else{
             //console.log(startDate);
             startDate.setHours(startDate.getHours()+24);
+
             //console.log('increamentedDate by 1 day');
             //console.log(startDate);
            }
         }
         console.log(monthLyView);
+        return monthLyView;
 }
 
 const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -79,5 +92,35 @@ function getMonthLabel(month){
             return 'na'
     }
 }
-
-findWeekMonthLabel();
+function getMonthLabelFull(month){
+    switch(month){
+        case 0:
+            return 'January'
+        case 1:
+            return 'February'
+        case 2:
+            return 'March'
+        case 3:
+            return 'April'
+        case 4:
+            return 'May'
+        case 5:
+            return 'June'
+        case 6:
+            return 'July'
+        case 7:
+            return 'August'
+        case 8:
+            return 'September'
+        case 9:
+            return 'October'
+        case 10:
+            return 'November'
+        case 11:
+            return 'December'
+        default:
+            return 'na'
+    }
+}
+//findWeekMonthLabel()
+module.exports =  findWeekMonthLabel;
