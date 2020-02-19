@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Card} from "reactstrap"
+import { Test } from './menu'
+import { utils } from './test';
 
 class App extends React.Component {
 
@@ -14,7 +16,7 @@ class App extends React.Component {
  render(){
   return (
     <div className="App">
-      {this.getDate()}
+      <Test />
     </div>
   );
  }
