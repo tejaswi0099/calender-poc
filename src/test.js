@@ -23,19 +23,33 @@ function findWeekMonthLabel(startDate = new Date('1/1/2019'), endDate = new Date
                //pick the date create week and decide the label
                 let tObj = {};
                 let d = startDate;
-                let x = startDate.getMonth() + 1
-                if(dateDiffInDays(startDate,new Date(`${startDate.getMonth()+1}/30/2019`)) < 7 && startDate.getMonth() !== 1){
+               // let x = startDate.getMonth() + 1
+                let mDay = calculateMonthDays(d);
+                if(dateDiffInDays(startDate,new Date(`${startDate.getMonth()+1}/${mDay}/${startDate.getFullYear()}`)) < 7 && dateDiffInDays(startDate,endDate) > 7){
                     let cmonth = getMonthLabel(startDate.getMonth());
                     let tDate = new Date(startDate);
                     let lastMonth = getMonthLabel(tDate.getMonth()+1);
                     tObj.monthLabel = `${cmonth} - ${lastMonth}`
                     tObj.startDate = new Date(startDate);                    
-                    tObj.endDate = startDate.setHours(startDate.getDay()+(6*24));
+                    tObj.endDate = new Date(startDate.setHours(startDate.getDay()+(6*24)));
+                    console.log(tObj)
+                    if(tObj.startDate.getTime() <= new Date().getTime() && tObj.endDate.getTime() >= new Date().getTime()){
+                        console.log(tObj)
+                        tObj.isCurrentWeek = true;
+                    }
+                        
                 }else{
                     let cmonth = getMonthLabelFull(startDate.getMonth());
                     tObj.monthLabel = `${cmonth}`
                     tObj.startDate = new Date(startDate);                    
                     tObj.endDate = new Date(startDate.setHours(startDate.getHours()+ (6*24)));
+                 if( (tObj.startDate.getTime() <= new Date().getTime() && tObj.endDate.getTime() >= new Date().getTime()) || (
+                        tObj.endDate.toLocaleDateString() === new Date().toLocaleDateString()
+                    ) ){
+                        console.log(tObj)
+                        tObj.isCurrentWeek = true;
+                    }
+                        
                 }
                 monthLyView.push(tObj);
            }else{
@@ -63,31 +77,31 @@ function dateDiffInDays(a, b) {
 
 
 function getMonthLabel(month){
-    switch(month){
+    switch(month%12){
         case 0:
-            return 'jan'
+            return 'Jan'
         case 1:
-            return 'feb'
+            return 'Feb'
         case 2:
-            return 'mar'
+            return 'Mar'
         case 3:
-            return 'apr'
+            return 'Apr'
         case 4:
-            return 'may'
+            return 'May'
         case 5:
-            return 'june'
+            return 'Jun'
         case 6:
-            return 'july'
+            return 'July'
         case 7:
-            return 'aug'
+            return 'Aug'
         case 8:
-            return 'sep'
+            return 'Sep'
         case 9:
-            return 'oct'
+            return 'Oct'
         case 10:
-            return 'nov'
+            return 'Nov'
         case 11:
-            return 'dec'
+            return 'Dec'
         default:
             return 'na'
     }
@@ -122,5 +136,16 @@ function getMonthLabelFull(month){
             return 'na'
     }
 }
+
+function calculateMonthDays (date){
+    //30 -- June, November , April , September
+    if(new Date(date).getMonth() === 3 ||  new Date(date).getMonth() === 5 || new Date(date).getMonth() === 8 || new Date().getMonth(date) === 10){
+      return 30
+    }else if(new Date(date).getMonth() === 1){
+      return 28;
+    }else{
+      return 31;
+    }
+  }
 //findWeekMonthLabel()
 module.exports =  findWeekMonthLabel;

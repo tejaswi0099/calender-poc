@@ -22,7 +22,7 @@ backClick = () => {
   sideScroll = (element,direction,speed,distance,step) => {
     var scrollAmount = 0;
     var slideTimer = setInterval(function(){
-        if(direction == 'left'){
+        if(direction === 'left'){
             element.scrollLeft -= step;
         } else {
             element.scrollLeft += step;
@@ -34,14 +34,22 @@ backClick = () => {
     }, speed);
 }
 
+componentDidMount(){
+    var container = this.myRef.current;
+    const cWeek = this.props.currentweek;
+    container.scrollTo(document.getElementsByClassName('current-week')[0])
+    //const el = document.getElementsByClassName('current-week')[0];
+    container.scrollLeft = 133.35 * (cWeek);
+}
+
  render(){
   return (
     <div className="scrollWidget">
-    <div className="leftBar" onClick={this.backClick} >&lt;</div>
+    <div className="leftBar" onClick={this.backClick} ><i class="fa fa-2x fa-angle-left"></i></div>
         <ul ref={this.myRef} className="items">
             {this.props.children}
         </ul>
-    <div className="rightBar" onClick={this.fwdClick} >&gt;</div>      
+    <div className="rightBar" onClick={this.fwdClick} ><i class="fa fa-2x fa-angle-right"></i></div>      
     </div>
   );
  }

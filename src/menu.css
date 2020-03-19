@@ -1,19 +1,57 @@
 .menu-item {
-    padding: 0 40px;
-    margin: 5px 10px;
-    user-select: none;
-    cursor: pointer;
-    border: none;
-  }
-  .menu-item-wrapper.active {
-    border: 1px blue solid;
-  }
-  .menu-item.active {
-    border: 1px green solid;
-    background-color: orangered;
-  }
-  
-  .scroll-menu-arrow {
-    padding: 20px;
-    cursor: pointer;
-  }
+  padding: 0 40px;
+  margin: 5px 10px;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+}
+.menu-item-wrapper.active {
+  border: 1px blue solid;
+}
+.menu-item.active {
+  border: 1px green solid;
+  background-color: #ee7102;
+}
+
+.scroll-menu-arrow {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.weekdays{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top:  0.5px solid rgba(0, 0, 0, 0.25);
+  border-bottom:  0.5px solid rgba(0, 0, 0, 0.25);
+}
+
+.dayboxes{
+  border-right: 0.5px solid rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  min-width: 14.3%;
+}
+
+.dayboxes-announcements{
+  min-height: 800px;
+}
+.selectedweek{
+  cursor: pointer;
+}
+.selectedweek span{
+  background-color: #ee7102;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+}
+.dayboxes span{
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+
+}
+
